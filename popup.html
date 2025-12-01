@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gak tahu apa si</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #0f0f0f;
+            color: #f0f0f0;
+            line-height: 1.6;
+            padding: 20px 10px;
+            display: flex;
+            min-height: 100vh;
+            overflow-y: auto;
+            width: 400px;
+        }
+
+        .form-container {
+            max-width: 500px;
+            /* Batasi lebar container formulir */
+            width: 100%;
+            background-color: #1a1a1a;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(255, 0, 0, 0.1);
+            overflow: hidden;
+            border: 1px solid #2a2a2a;
+            overflow-y: auto;
+        }
+
+        .form-header {
+            background: linear-gradient(to bottom, #111 40%, #d32f2f);
+            padding: 25px 20px;
+            text-align: center;
+            border-bottom: 3px solid #d32f2f;
+        }
+
+        .form-header h1 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: white;
+            letter-spacing: 0.5px;
+        }
+
+        .form-header p {
+            font-size: 14px;
+            opacity: 0.9;
+            max-width: 350px;
+            margin: 0 auto;
+        }
+
+        .form-header-icon {
+            font-size: 28px;
+            color: #ff5252;
+            margin-bottom: 15px;
+        }
+
+        .form-content {
+            padding: 25px 20px;
+        }
+
+        .question-group {
+            margin-bottom: 32px;
+            background-color: #222;
+            border-radius: 12px;
+            padding: 20px;
+            border-left: 4px solid #d32f2f;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .question-group:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(211, 47, 47, 0.1);
+        }
+
+        .question {
+            margin-bottom: 18px;
+        }
+
+        /* Gaya untuk gambar pertanyaan */
+        .question-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-top: 10px;
+            border: 1px solid #444;
+            display: block;
+        }
+
+        .question-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            color: #f0f0f0;
+        }
+
+        .question-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            background-color: #d32f2f;
+            color: white;
+            border-radius: 50%;
+            flex-shrink: 0;
+            margin-right: 10px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .required {
+            color: #ff5252;
+            margin-left: 5px;
+            font-size: 18px;
+        }
+
+        .question-description {
+            font-size: 14px;
+            color: #aaa;
+            margin-bottom: 15px;
+            margin-left: 38px;
+        }
+
+        .answer-options {
+            margin-left: 38px;
+        }
+
+        .option {
+            margin-bottom: 14px;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        /* Gaya untuk Opsi Jawaban Berupa Gambar */
+        .image-option {
+            display: block;
+            margin-bottom: 10px;
+            border: 2px solid transparent;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: border-color 0.3s ease;
+        }
+
+        .image-option img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+            background-color: #333;
+            /* Untuk gambar yang tidak dimuat */
+        }
+
+        .image-option-label {
+            font-weight: bold;
+            background-color: #333;
+            padding: 5px 10px;
+            display: block;
+            text-align: center;
+            border-top: 1px solid #444;
+        }
+
+        .image-option input[type="radio"]:checked+.image-option {
+            border-color: #d32f2f;
+            box-shadow: 0 0 10px rgba(211, 47, 47, 0.5);
+        }
+
+        .image-option-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        /* Sembunyikan input radio asli untuk opsi gambar */
+        .image-option-container input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+            pointer-events: none;
+        }
+
+        .image-option-wrapper {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .image-option-wrapper input[type="radio"]:checked+.image-option {
+            border-color: #d32f2f;
+            box-shadow: 0 0 10px rgba(211, 47, 47, 0.5);
+            transform: scale(0.98);
+        }
+
+        .image-option-wrapper:hover .image-option {
+            border-color: #ff5252;
+        }
+
+        /* Sisa gaya yang sudah ada... */
+
+        input[type="radio"],
+        input[type="checkbox"] {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #444;
+            border-radius: 50%;
+            margin-right: 12px;
+            margin-top: 2px;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        input[type="checkbox"] {
+            border-radius: 4px;
+        }
+
+        input[type="radio"]:checked,
+        input[type="checkbox"]:checked {
+            background-color: #d32f2f;
+            border-color: #d32f2f;
+        }
+
+        input[type="radio"]:checked::after,
+        input[type="checkbox"]:checked::after {
+            content: '';
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: white;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        input[type="checkbox"]:checked::after {
+            width: 6px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            border-radius: 0;
+            background: transparent;
+            transform: translate(-50%, -60%) rotate(45deg);
+        }
+
+        .option label {
+            cursor: pointer;
+            font-size: 16px;
+            color: #e0e0e0;
+            flex: 1;
+        }
+
+        .text-input,
+        .textarea-input {
+            width: 100%;
+            padding: 14px 16px;
+            background-color: #2a2a2a;
+            border: 2px solid #333;
+            border-radius: 8px;
+            color: #f0f0f0;
+            font-size: 16px;
+            margin-top: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .text-input:focus,
+        .textarea-input:focus {
+            outline: none;
+            border-color: #d32f2f;
+            background-color: #252525;
+            box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.2);
+        }
+
+        .textarea-input {
+            min-height: 120px;
+            resize: vertical;
+            font-family: inherit;
+        }
+
+        .form-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            border-top: 1px solid #333;
+            background-color: #1e1e1e;
+        }
+
+        .submit-btn {
+            background: linear-gradient(to right, #c62828, #d32f2f);
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            margin-left: auto;
+            margin-right: auto;
+            justify-content: center;
+        }
+
+        .submit-btn:hover {
+            background: linear-gradient(to right, #b71c1c, #c62828);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(211, 47, 47, 0.3);
+        }
+
+        .submit-btn i {
+            margin-right: 8px;
+        }
+
+        .progress-info {
+            font-size: 14px;
+            color: #aaa;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background-color: #333;
+            border-radius: 3px;
+            margin-bottom: 8px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(to right, #c62828, #d32f2f);
+            width: 75%;
+            border-radius: 3px;
+            transition: width 0.5s ease;
+        }
+
+        @media (max-width: 420px) {
+            .form-container {
+                border-radius: 12px;
+            }
+
+            .question-group {
+                padding: 16px;
+            }
+
+            .form-content {
+                padding: 20px 16px;
+            }
+
+            .image-option-container {
+                grid-template-columns: 1fr;
+                /* Satu kolom di layar kecil */
+            }
+        }
+
+        .credit {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .credit a {
+            color: #d32f2f;
+            text-decoration: none;
+        }
+
+        .credit a:hover {
+            text-decoration: underline;
+        }
+        
+        .image-question {
+            object-fit: cover;
+            width: 100%;
+        }
+
+        .image-flex {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        #answer {
+            overflow-y: auto;
+        }
+
+        input {
+            flex-shrink: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="form-container" id="form-container">
+        <div class="form-header">
+            <div class="form-header-icon">
+                <img src="https://avatars.githubusercontent.com/u/205189488?s=200&v=4" alt="SyntxFlow Logo" width="100" height="100">
+            </div>
+            <h1>Google Forms Solver</h1>
+            <p>Perlu diingat, untuk mengambil data pertamakali, harap gunakan tombol "Ambil data forms"</p>
+            <p>Jawaban muncul mungkin akan memakan waktu lama, tergantung API service nya ( Gratisan jir 😂 )</p>
+        </div>
+
+        <div id="container">
+            <div class="form-content" id="answer">
+                <h4 style="width: 100%; text-align: center; opacity: 0.7;">Belum ada data jawaban</h4>
+            </div>
+        </div>
+        
+        <button class="submit-btn" id="btn-ex">
+            <i class="fas fa-key"></i> Ambil data forms
+        </button>
+        <button class="submit-btn" id="btn-ex-cache" style="margin-top: 20px; background: green;">
+            <i class="fas fa-recycle"></i> Reset
+        </button>
+    </div>
+
+
+    <script src="popup.js"></script>
+</body>
+
+</html>
