@@ -1,0 +1,143 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+    --cupertino-blue: #007AFF;
+    --cupertino-red: #FF3B30;
+    --cupertino-bg: #F2F2F7;
+    --cupertino-card-bg: #FFFFFF;
+    --cupertino-separator: rgba(0, 0, 0, 0.1);
+    --cupertino-text: #000000;
+}
+
+* {
+    user-select: none;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display",
+             "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--cupertino-bg);
+    margin: 0;
+    padding: 0;
+    width: 400px;
+    color: var(--cupertino-text);
+}
+
+/* --- Container Utama --- */
+.cupertino-container {
+    max-width: 420px;
+    /* Lebar khas iPhone */
+    margin: 0 auto;
+    background-color: var(--cupertino-bg);
+    min-height: 100vh;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+    /* Sedikit bayangan untuk kesan tampilan layar */
+}
+
+/* --- Navigation Bar (Header) --- */
+.navigation-bar {
+    background-color: var(--cupertino-card-bg);
+    border-bottom: 0.5px solid var(--cupertino-separator);
+    padding: 12px 16px;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.header-title {
+    font-size: 17px;
+    font-weight: 600;
+    /* Semi-bold */
+    margin: 0;
+    color: var(--cupertino-text);
+}
+
+/* --- Konten dan Kartu --- */
+.content {
+    padding: 20px 16px;
+}
+
+.card {
+    background-color: var(--cupertino-card-bg);
+    border-radius: 10px;
+    /* Sudut membulat khas iOS */
+    padding: 15px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    /* Bayangan halus */
+    margin-bottom: 25px;
+}
+
+.project-name {
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.description {
+    font-size: 15px;
+    line-height: 1.4;
+    color: #4A4A4A;
+    /* Warna teks agak abu-abu */
+}
+
+/* --- Tombol Aksi --- */
+.action-section {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.cupertino-button {
+    padding: 14px 20px;
+    border: none;
+    border-radius: 12px;
+    font-size: 17px;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.15s ease-in-out, opacity 0.15s ease-in-out;
+    width: 100%;
+}
+
+/* Primary Button (Blue) */
+.cupertino-button.primary {
+    background-color: var(--cupertino-blue);
+    color: var(--cupertino-card-bg);
+    /* Teks putih */
+}
+
+/* Secondary Button (Standard/Gray) */
+.cupertino-button.secondary {
+    background-color: #E5E5EA;
+    /* Abu-abu terang */
+    color: var(--cupertino-text);
+}
+
+/* Destructive Button (Red) */
+.cupertino-button.destructive {
+    background-color: var(--cupertino-red);
+    color: var(--cupertino-card-bg);
+}
+
+/* Efek Hover/Active (Cupertino Press Effect) */
+.cupertino-button:active {
+    opacity: 0.7;
+    /* Menurunkan opasitas saat ditekan */
+}
+
+.icon-placeholder {
+    margin-right: 5px;
+}
+
+/* --- Footer Informasi --- */
+.info-footer {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.info-footer p {
+    font-size: 13px;
+    color: #8E8E93;
+    /* Warna abu-abu yang lebih redup */
+    margin: 0;
+}
