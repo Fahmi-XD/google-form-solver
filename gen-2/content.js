@@ -24,6 +24,16 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
     }
 });
 
+function disableScroll() {
+    document.body.style.overflow = "hidden";
+    // document.documentElement.style.overflow = "hidden";
+}
+
+function enableScroll() {
+    document.body.style.overflow = "";
+    // document.documentElement.style.overflow = "";
+}
+
 function moveOverlay(ui, isReset = false) {
     if (cacheX || cacheY) {
         ui.style.left = cacheX + "px";
@@ -52,6 +62,8 @@ function moveOverlay(ui, isReset = false) {
         if (e.target.classList.contains("gfs-btn")) return;
 
         isDown = true;
+        disableScroll();
+
         offsetX = pos.x - ui.offsetLeft;
         offsetY = pos.y - ui.offsetTop;
         ui.querySelector(".gfs-header").style.cursor = "grabbing";
@@ -60,6 +72,8 @@ function moveOverlay(ui, isReset = false) {
     // Move drag (mouse + touch)
     function moveDrag(e) {
         if (!isDown) return;
+
+        e.preventDefault();
 
         const pos = getClientPos(e);
 
@@ -75,6 +89,7 @@ function moveOverlay(ui, isReset = false) {
     // End drag
     function endDrag() {
         isDown = false;
+        enableScroll();
         ui.querySelector(".gfs-header").style.cursor = "grab";
     }
 
