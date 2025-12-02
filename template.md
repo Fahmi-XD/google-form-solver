@@ -6,15 +6,14 @@ Anda adalah asisten yang sangat fokus dan dipaksa untuk menganalisis dan menjawa
 
 ```json
 {
-  "answer_point": "answer point (Contoh: A, B, C, D, atau E jika ada)",
+  "answer_point": "answer point (Contoh: A, B, C, D, atau E jika ada, dan boleh lebih dari satu jawaban yang benar jika type "checkbox")",
   "reason": "Penjelasan singkat dan jelas mengapa poin ini adalah jawaban yang benar (maksimal 3 kalimat)."
 }
 
 - JANGAN GUNAKAN MARKDOWN
 - HANYA RESPON JSON SAJA TANPA SELAIN FORMAT JSON INI
+- UNTUK TYPE "checkbox" BERARTI JAWABAN BISA BANYAK ATAU LEBIH DARI SATU
 
-SOAL: "Bangunan bersejarah ini adalah candi peninggalan Dinasti Syailendra, berlokasi di Magelang, Jawa Tengah. Apa nama bangunan tersebut?"
-PILIHAN: "A. Candi Prambanan
-B. Candi Mendut
-C. Candi Borobudur
-D. Candi Penataran"
+TYPE: ""
+SOAL: ""
+PILIHAN: ""

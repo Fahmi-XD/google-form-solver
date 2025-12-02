@@ -15,7 +15,7 @@
 
 body {
     font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display",
-             "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     background-color: var(--cupertino-bg);
     margin: 0;
     padding: 0;
@@ -140,4 +140,82 @@ body {
     color: #8E8E93;
     /* Warna abu-abu yang lebih redup */
     margin: 0;
+}
+
+#ios-alert-modal {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999999999;
+    opacity: 0;
+    transition: opacity .2s ease;
+    pointer-events: none;
+}
+
+#ios-alert-modal.visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.ios-alert-overlay {
+    position: absolute;
+    inset: 0;
+    backdrop-filter: blur(10px);
+    background: rgba(0, 0, 0, 0.25);
+}
+
+.ios-alert-box {
+    width: 280px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 20px;
+    padding: 18px;
+    text-align: center;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    position: relative;
+    z-index: 2;
+    transform: scale(.8);
+    transition: transform .2s ease;
+}
+
+#ios-alert-modal.visible .ios-alert-box {
+    transform: scale(1);
+}
+
+.ios-alert-title {
+    font-size: 17px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #000;
+}
+
+.ios-alert-message {
+    font-size: 14px;
+    opacity: 0.8;
+    margin-bottom: 18px;
+    color: #333;
+}
+
+.ios-alert-actions {
+    display: flex;
+    justify-content: center;
+}
+
+.ios-alert-ok {
+    background: #FFFFFF;
+    border: none;
+    padding: 8px 20px;
+    font-size: 16px;
+    color: #007AFF;
+    /* iOS Blue */
+    font-weight: 600;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.ios-alert-ok:hover {
+    background: rgba(0, 0, 0, 0.05);
 }

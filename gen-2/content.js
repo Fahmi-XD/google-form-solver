@@ -414,17 +414,21 @@ function openMenu() {
 
                 moveOverlay(ui, true)
 
-                const response = await getAnswerAIAgent(currentData)
+                let response = undefined;
+                while (response == undefined) {
+                    response = await getAnswerAIAgent(currentData)
+                }
                 console.log(response)
 
                 ui.innerHTML = `
                     ${HEADER_TEMPLATE}
 
+                    <div class="gfs-question" style="margin-bottom: 8px; opacity: 0.9; margin-top: 8px;">${currentData.question}</div>
                     <div class="gfs-answer" style="color: black; margin-bottom: 5px;">Jawaban dariku:</div>
                     
                     <div class="gfs-body">
-                        <div class="gfs-question">${currentData.question}</div>
-                        <div class="gfs-answer">${response.answer_point}</div>
+                        <div class="gfs-answer" style="margin-bottom: 5px;">${response.answer_point.split("|") && response.answer_point.split("|").length != 0 ? response.answer_point.split("|").join("</br>").trim() : response.answer_point.trim()}</div>
+                        <div class="gfs-question" style="opacity: 0.6; font-size: 10px;">${response.reason.trim()}</div>
                     </div>
                     
                     <div style="margin-top: 10px;">
@@ -566,7 +570,7 @@ function extractFormData() {
 async function getAnswerAIAgent(data) {
     return new Promise(async resolve => {
         chrome.runtime.sendMessage({
-            type: "fetch",
+            type: "fetch-ootaizumi",
             data: data
         }, response => {
             resolve(response)
