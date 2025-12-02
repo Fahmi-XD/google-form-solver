@@ -377,7 +377,7 @@ function openMenu() {
         ui.innerHTML = `
             ${HEADER_TEMPLATE}
 
-            <div class="gfs-answer" style="color: black; margin-bottom: 10px;">Pilih soal mana yang ingin ku jawab</div>
+            <div class="gfs-answer" style="color: black; margin-bottom: 10px;">Pilih, soal mana yang mau gw jawab</div>
 
             <div class="gfs-actions">
                 ${buttonQuestion}

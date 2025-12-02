@@ -1,5 +1,4 @@
 document.getElementById("close-popup").addEventListener("click", () => {
-    chrome.action.setPopup({ popup: "" });
     window.close();
 });
 
@@ -15,7 +14,6 @@ document.getElementById("open-menu").addEventListener("click", async () => {
             showIOSAlert("Kegagalan!", "Gagal mengambil data, coba reload ulang halaman")
         } else {
             if (response.action == "close-popup") {
-                chrome.action.setPopup({ popup: "" });
                 window.close();
             }
         }
